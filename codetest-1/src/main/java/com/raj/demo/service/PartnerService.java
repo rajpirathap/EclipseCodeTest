@@ -25,12 +25,13 @@ public class PartnerService implements PartnerServiceImpl {
 			if (available <= 0) {
 				continue;
 			} else if (available >= remain) {
+				totalRate += remain * partners.get(i).getRate();
 				remain = 0;
 			} else if (available < remain) {
-
+				totalRate += available * partners.get(i).getRate();
 				remain = remain - available;
 			}
-			totalRate += available * partners.get(i).getRate();
+			
 		}
 
 		return totalRate / amount;
