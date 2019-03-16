@@ -41,10 +41,11 @@ public class PartnerService implements PartnerServiceImpl {
 		        continue;
 		    }else if(available >= remain){
 		        totalRate += remain* partners.get(i).getRate();
-
+		        partners.get(i).setAvailable(available-remain);
 		        remain = 0;
 		    }else if(available < remain){
 		        totalRate += available* partners.get(i).getRate();
+		        partners.get(i).setAvailable(0);
 		        remain = remain -available;
 		    }
 		    transactionFee+=partners.get(i).getTxnfee();

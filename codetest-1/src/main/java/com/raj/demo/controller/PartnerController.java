@@ -39,9 +39,9 @@ public class PartnerController {
 		return df.format(rate);
 	}
 
-//	@RequestMapping(value = "/getrate3", method = RequestMethod.GET)
-//	public void solveLevel3() {
-//		service.getpopulateData();
-//
-//	}
+	@RequestMapping(value = "/getrate3", method = RequestMethod.GET)
+	public void solveLevel3() {
+		service.getpopulateData();
+
+	}
 }
