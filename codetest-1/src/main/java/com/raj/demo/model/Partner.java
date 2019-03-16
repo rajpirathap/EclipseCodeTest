@@ -22,7 +22,8 @@ public class Partner implements Serializable {
     private String name;
     private double rate;
     private double available;
-
+    private double txnfee;
+    
     public String getName() {
 		return name;
 	}
@@ -49,5 +50,16 @@ public class Partner implements Serializable {
 		this.available = supply;
 	}
 
+	public double getTxnfee() {
+		return txnfee;
+	}
+
+	public void setTxnfee(double txnfee) {
+		this.txnfee = txnfee;
+	}
+
+	public double getSortFactor() {
+		return 1000*rate - txnfee;
+	}
   
 }

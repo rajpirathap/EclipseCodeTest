@@ -21,14 +21,27 @@ public class PartnerController {
 	@Autowired
 	PartnerService service;
 
-	private static DecimalFormat df = new DecimalFormat(".#####");
+	private static DecimalFormat df = new DecimalFormat(".###");
 
-	@RequestMapping(value = "/getrate", method = RequestMethod.GET)
+	@RequestMapping(value = "/getrate1", method = RequestMethod.GET)
 	public String solveLevel1(@RequestParam("sellamt") Double sellamt) {
 		double rate = service.getExchangeRateForScenario1(sellamt);
 
 		System.out.println(df.format(rate));
 		return df.format(rate);
 	}
+	
+	@RequestMapping(value = "/getrate2", method = RequestMethod.GET)
+	public String solveLevel2(@RequestParam("sellamt") Double sellamt) {
+		double rate = service.getExchangeRateForScenario2(sellamt);
 
+		System.out.println(df.format(rate));
+		return df.format(rate);
+	}
+
+//	@RequestMapping(value = "/getrate3", method = RequestMethod.GET)
+//	public void solveLevel3() {
+//		service.getpopulateData();
+//
+//	}
 }
