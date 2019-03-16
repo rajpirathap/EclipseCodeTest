@@ -3,9 +3,17 @@ package com.raj.demo.data;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.raj.demo.model.Partner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import com.raj.demo.model.Partner;
+import com.raj.demo.repository.PartnerRepository;
+
+@Component
 public class DataAccess {
+
+	@Autowired
+	PartnerRepository partnerRepository;
 
 	public List<Partner> getPopulatedData() {
 		List<Partner> partners = new ArrayList<>();
@@ -28,5 +36,15 @@ public class DataAccess {
 		partners.add(p3);
 
 		return partners;
+	}
+
+	public List<Partner> getAllPartners() {
+		List<Partner> partners = partnerRepository.findAll();
+
+		return partners;
+	}
+	
+	public void SaveAllPartners(List<Partner> partners) {
+		partnerRepository.saveAll(partners);
 	}
 }

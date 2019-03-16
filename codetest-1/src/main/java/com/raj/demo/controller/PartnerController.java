@@ -23,9 +23,17 @@ public class PartnerController {
 
 	private static DecimalFormat df = new DecimalFormat(".#####");
 
-	@RequestMapping(value = "/getrate", method = RequestMethod.GET)
+	@RequestMapping(value = "/getrate1", method = RequestMethod.GET)
 	public String solveLevel1(@RequestParam("sellamt") Double sellamt) {
 		double rate = service.getExchangeRateForScenario1(sellamt);
+
+		System.out.println(df.format(rate));
+		return df.format(rate);
+	}
+	
+	@RequestMapping(value = "/getrate2", method = RequestMethod.GET)
+	public String solveLevel2(@RequestParam("sellamt") Double sellamt) {
+		double rate = service.getExchangeRateForScenario2(sellamt);
 
 		System.out.println(df.format(rate));
 		return df.format(rate);
