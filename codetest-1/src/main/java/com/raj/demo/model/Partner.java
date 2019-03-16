@@ -21,7 +21,7 @@ public class Partner implements Serializable {
     private Long id;
     private String name;
     private double rate;
-    private int supply;
+    private double available;
 
     public String getName() {
 		return name;
@@ -41,12 +41,12 @@ public class Partner implements Serializable {
 	}
 
 
-	public int getSupply() {
-		return supply;
+	public double getAvailable() {
+		return available;
 	}
 
-	public void setSupply(int supply) {
-		this.supply = supply;
+	public void setAvailable(double supply) {
+		this.available = supply;
 	}
 
   
