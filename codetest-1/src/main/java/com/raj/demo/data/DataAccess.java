@@ -6,7 +6,11 @@ import java.util.List;
 import com.raj.demo.model.Partner;
 
 public class DataAccess {
-
+	/**
+	 * This function is help to populated data
+	 * 
+	 * @return partners List
+	 */
 	public List<Partner> getPopulatedData() {
 		List<Partner> partners = new ArrayList<>();
 		Partner p1 = new Partner();

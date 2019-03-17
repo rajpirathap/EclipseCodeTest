@@ -10,12 +10,24 @@ import com.raj.demo.model.Partner;
 
 @Service
 public class PartnerService implements PartnerServiceImpl {
-
+	/**
+	 * This function returns the final exchange rate
+	 * 
+	 * @param amount
+	 * @return
+	 */
 	public double getExchangeRateForScenario1(double amount) {
 		DataAccess ds = new DataAccess();
 		return getExchangeRate(ds.getPopulatedData(), amount);
 	}
 
+	/**
+	 * This function calculates the effective exchange rate for a given amount
+	 * 
+	 * @param partners
+	 * @param amount
+	 * @return
+	 */
 	public double getExchangeRate(List<Partner> partners, double amount) {
 		partners.sort(Comparator.comparing((Partner a) -> a.getRate()).reversed());
 		double remain = amount;
@@ -31,7 +43,7 @@ public class PartnerService implements PartnerServiceImpl {
 				totalRate += available * partners.get(i).getRate();
 				remain = remain - available;
 			}
-			
+
 		}
 
 		return totalRate / amount;
