@@ -16,18 +16,32 @@ public class PartnerService implements PartnerServiceImpl {
 
 	@Autowired
 	DataAccess ds;
+
 	public double getExchangeRateForScenario1(double amount) {
 		return getExchangeRate(ds.getPopulatedData(), amount);
 	}
-	
+
+	/**
+	 * This function returns the final exchange rate
+	 * 
+	 * @param amount
+	 * @return
+	 */
 	public double getExchangeRateForScenario2(double amount) {
 		List<Partner> partners = ds.getAllPartners();
 		double rate = getExchangeRate(partners, amount);
 		ds.SaveAllPartners(partners);
-		
+
 		return rate;
 	}
 
+	/**
+	 * This function calculates the effective exchange rate for a given amount
+	 * 
+	 * @param partners
+	 * @param amount
+	 * @return
+	 */
 	@Transactional
 	public double getExchangeRate(List<Partner> partners, double amount) {
 		partners.sort(Comparator.comparing((Partner a) -> a.getRate()).reversed());
@@ -39,15 +53,14 @@ public class PartnerService implements PartnerServiceImpl {
 				continue;
 			} else if (available >= remain) {
 				totalRate += remain * partners.get(i).getRate();
-				partners.get(i).setAvailable(available-remain);
+				partners.get(i).setAvailable(available - remain);
 				remain = 0;
 			} else if (available < remain) {
 				totalRate += available * partners.get(i).getRate();
 				partners.get(i).setAvailable(0);
 				remain = remain - available;
 			}
-			
-			
+
 		}
 
 		return totalRate / amount;

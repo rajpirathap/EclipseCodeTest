@@ -2,10 +2,8 @@ package com.raj.demo.data;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import com.raj.demo.model.Partner;
 import com.raj.demo.repository.PartnerRepository;
 
@@ -15,6 +13,11 @@ public class DataAccess {
 	@Autowired
 	PartnerRepository partnerRepository;
 
+	/**
+	 * returns the populated data for question 1
+	 * 
+	 * @return
+	 */
 	public List<Partner> getPopulatedData() {
 		List<Partner> partners = new ArrayList<>();
 		Partner p1 = new Partner();
@@ -38,12 +41,22 @@ public class DataAccess {
 		return partners;
 	}
 
+	/**
+	 * Returns all the partners
+	 * 
+	 * @return
+	 */
 	public List<Partner> getAllPartners() {
 		List<Partner> partners = partnerRepository.findAll();
 
 		return partners;
 	}
-	
+
+	/**
+	 * This saves the updated partners
+	 * 
+	 * @param partners
+	 */
 	public void SaveAllPartners(List<Partner> partners) {
 		partnerRepository.saveAll(partners);
 	}
