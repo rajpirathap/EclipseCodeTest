@@ -41,26 +41,28 @@ public class PartnerService implements PartnerServiceImpl {
 	 */
 	@Transactional
 	public double getExchangeRate(List<Partner> partners, double amount) {
-		partners.sort(Comparator.comparing((Partner a) -> a.getSortFactor()).reversed());
-		double remain = amount;
-		double transactionFee = 0.0;
-		double totalRate = 0;
-		for (int i = 0; i < partners.size() && remain > 0; i++) {
-			double available = partners.get(i).getAvailable();
-			if (available <= 0) {
-				continue;
-			} else if (available >= remain) {
-				totalRate += remain * partners.get(i).getRate();
-				partners.get(i).setAvailable(available - remain);
-				remain = 0;
-			} else if (available < remain) {
-				totalRate += available * partners.get(i).getRate();
-				partners.get(i).setAvailable(0);
-				remain = remain - available;
+		synchronized (this) { // to handle concurrency access
+			partners.sort(Comparator.comparing((Partner a) -> a.getSortFactor()).reversed());
+			double remain = amount;
+			double transactionFee = 0.0;
+			double totalRate = 0;
+			for (int i = 0; i < partners.size() && remain > 0; i++) {
+				double available = partners.get(i).getAvailable();
+				if (available <= 0) {
+					continue;
+				} else if (available >= remain) {
+					totalRate += remain * partners.get(i).getRate();
+					partners.get(i).setAvailable(available - remain);
+					remain = 0;
+				} else if (available < remain) {
+					totalRate += available * partners.get(i).getRate();
+					partners.get(i).setAvailable(0);
+					remain = remain - available;
+				}
+				transactionFee += partners.get(i).getTxnfee();
 			}
-			transactionFee += partners.get(i).getTxnfee();
+			return (totalRate / (amount + transactionFee));
 		}
-		return (totalRate / (amount + transactionFee));
 	}
 
 	public void getpopulateData() {
