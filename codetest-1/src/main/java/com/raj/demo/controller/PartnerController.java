@@ -26,7 +26,7 @@ public class PartnerController {
 
 	@Autowired
 	PartnerService service1;
-	ExecutorService pool = Executors.newFixedThreadPool(10);
+	ExecutorService pool = Executors.newFixedThreadPool(10); // set the thread pool with 10
 	private static DecimalFormat df = new DecimalFormat(".###");
 
 	/**
