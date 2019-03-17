@@ -2,12 +2,9 @@ package com.raj.demo.service;
 
 import java.util.Comparator;
 import java.util.List;
-
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.raj.demo.data.DataAccess;
 import com.raj.demo.model.Partner;
 

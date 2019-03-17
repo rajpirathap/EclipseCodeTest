@@ -42,7 +42,12 @@ public class DataAccess {
 	 * @return
 	 */
 	public List<Partner> getAllPartners() {
-		List<Partner> partners = partnerRepository.findAll();
+		List<Partner> partners = null;
+		try {
+			partners = partnerRepository.findAll();
+		} catch (Exception e) {
+			System.out.println("Database access issue occured");
+		}
 
 		return partners;
 	}
@@ -53,7 +58,11 @@ public class DataAccess {
 	 * @param partners
 	 */
 	public void SaveAllPartners(List<Partner> partners) {
-		partnerRepository.saveAll(partners);
+		try {
+			partnerRepository.saveAll(partners);
+		} catch (Exception e) {
+			System.out.println("Database issue occured");
+		}
 	}
 
 	/**

@@ -34,7 +34,12 @@ public class PartnerController {
 	 */
 	@RequestMapping(value = "/getrate", method = RequestMethod.POST)
 	public String solveLevel2(HttpServletRequest request, HttpServletResponse response, Model model) {
-		double sellamt = Double.parseDouble(request.getParameter("sellamt"));
+		double sellamt = 0.0;
+		try {
+		sellamt = Double.parseDouble(request.getParameter("sellamt"));
+		}catch(Exception e) {
+			return "Please enetr valid amount";
+		}
 		double rate = service.getExchangeRateForScenario2(sellamt);
 
 		System.out.println(df.format(rate));
