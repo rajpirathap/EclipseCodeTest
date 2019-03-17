@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.raj.demo.helper.ServiceThread;
+import com.raj.demo.helper.ThreadComponent;
 import com.raj.demo.repository.PartnerRepository;
 import com.raj.demo.service.PartnerService;
 
@@ -22,7 +23,7 @@ public class PartnerController {
 	@Autowired
 	PartnerRepository partnerRepository;
 	@Autowired
-	ServiceThread th;
+	ThreadComponent tc;
 
 	@Autowired
 	PartnerService service1;
@@ -43,6 +44,7 @@ public class PartnerController {
 		Double res = null;
 		try {
 			sellamt = Double.parseDouble(request.getParameter("sellamt"));
+			ServiceThread th = tc.getThread();
 			th.setSellAmt(sellamt);
 			Future<Double> result = pool.submit(th);
 			res = result.get();
