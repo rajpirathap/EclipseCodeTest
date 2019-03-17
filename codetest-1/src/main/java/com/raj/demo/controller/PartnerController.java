@@ -1,15 +1,16 @@
 package com.raj.demo.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import java.text.DecimalFormat;
 
-import com.raj.demo.data.DataAccess;
-import com.raj.demo.model.Partner;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import com.raj.demo.repository.PartnerRepository;
 import com.raj.demo.service.PartnerService;
-
-import java.text.DecimalFormat;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -23,23 +24,24 @@ public class PartnerController {
 
 	private static DecimalFormat df = new DecimalFormat(".###");
 
-	@RequestMapping(value = "/getrate1", method = RequestMethod.GET)
-	public String solveLevel1(@RequestParam("sellamt") Double sellamt) {
-		double rate = service.getExchangeRateForScenario1(sellamt);
-
-		System.out.println(df.format(rate));
-		return df.format(rate);
-	}
-	
-	@RequestMapping(value = "/getrate2", method = RequestMethod.GET)
-	public String solveLevel2(@RequestParam("sellamt") Double sellamt) {
+	/**
+	 * REST api to get the rate
+	 * 
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/getrate", method = RequestMethod.POST)
+	public String solveLevel2(HttpServletRequest request, HttpServletResponse response, Model model) {
+		double sellamt = Double.parseDouble(request.getParameter("sellamt"));
 		double rate = service.getExchangeRateForScenario2(sellamt);
 
 		System.out.println(df.format(rate));
 		return df.format(rate);
 	}
 
-	@RequestMapping(value = "/getrate3", method = RequestMethod.GET)
+	@RequestMapping(value = "/polulate", method = RequestMethod.GET)
 	public void solveLevel3() {
 		service.getpopulateData();
 
