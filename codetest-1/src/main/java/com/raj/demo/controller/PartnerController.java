@@ -44,7 +44,7 @@ public class PartnerController {
 		Double res = null;
 		try {
 			sellamt = Double.parseDouble(request.getParameter("sellamt"));
-			ServiceThread th = tc.getThread();
+			ServiceThread th = tc.getThread(); // ServiceThread internally uses observer pattern so once the thread completes its work, return the value
 			th.setSellAmt(sellamt);
 			Future<Double> result = pool.submit(th);
 			res = result.get();

@@ -11,7 +11,7 @@ public class ThreadComponent {
 	@Autowired
 	ServiceThread sth;
 	
-	@Scope(value = "prototype")
+	@Scope(value = "prototype") // will create new service thread
 	public ServiceThread getThread() {
 		return sth;
 	}
